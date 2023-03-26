@@ -1,1 +1,1 @@
-# lighthouse-plugin-performance
+# Lighthouse Performance Plugin

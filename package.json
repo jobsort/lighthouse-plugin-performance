@@ -1,5 +1,12 @@
 {
+  "devDependencies": {
+    "lighthouse": "^10.1.0"
+  },
+  "main": "plugin.js",
   "name": "lighthouse-plugin-performance",
+  "peerDependencies": {
+    "lighthouse": "^10.1.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/yperformance/lighthouse-plugin-performance.git"

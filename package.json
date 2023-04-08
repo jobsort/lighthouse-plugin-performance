@@ -24,5 +24,5 @@
     "devtests": "NODE_PATH=.. npx lighthouse https://www.jobsort.com --plugins=lighthouse-plugin-performance --only-categories=lighthouse-plugin-performance --view"
   },
   "type": "module",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

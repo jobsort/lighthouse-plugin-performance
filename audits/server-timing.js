@@ -1,35 +1,38 @@
 /*
- * Copyright (c) 2023-present Y Performance. All rights reserved.
+ * Copyright (c) 2023-present Jobsort. All rights reserved.
  */
 
-import { Audit } from "lighthouse";
+import {
+  Audit,
+  NetworkRecords,
+} from "lighthouse";
 
-class CatAudit extends Audit {
+class ServerTimingAudit extends Audit {
   static get meta() {
     return {
       id: "server-timing",
-      title: "Page is tracking internal server latencies",
-      failureTitle: "Page doesn't respond with Server-Timing HTTP header",
+      title: "Has `Server-Timing`",
+      failureTitle: "`Server-Timing` HTTP header is missing",
       description:
-        'Pages should have lots of cat images to keep users happy. ' +
-        'Consider adding a picture of a cat to your page improve engagement.',
-      requiredArtifacts: ['ImageElements'],
+        "It's considered best practice to instrument internal server latencies to help with debugging. " +
+        "Consider adding a Server-Timing HTTP header to your HTML page response.",
+      requiredArtifacts: ["devtoolsLogs"],
     };
   }
 
-  static audit(artifacts) {
-    // Artifacts requested in `requiredArtifacts` above are passed to your audit.
-    // See the "API -> Plugin Audits" section below for what artifacts are available.
-    const images = artifacts.ImageElements;
-    const catImages = images.filter(image => image.src.toLowerCase().includes('cat'));
+  static async audit(artifacts, context) {
+    const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
+    const requests = await NetworkRecords.request(devtoolsLog, context);
+
+    const goodRequests = requests.filter((request) =>
+      request.responseHeaders.some((header) => header.name.toLowerCase() === "server-timing")
+    );
 
     return {
-      // Give users a 100 if they had a cat image, 0 if they didn't.
-      score: catImages.length > 0 ? 1 : 0,
-      // Also return the total number of cat images that can be used by report JSON consumers.
-      numericValue: catImages.length,
+      score: goodRequests.length > 0 ? 1 : 0,
+      numericValue: goodRequests.length,
     };
   }
 }
 
-export default CatAudit;
+export default ServerTimingAudit;

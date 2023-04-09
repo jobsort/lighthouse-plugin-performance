@@ -9,7 +9,7 @@ export default {
 
   category: {
     title: "Performance++",
-    description: "Advanced web performance optimization techniques.",
+    description: "Advanced web performance optimization best practices from https://webperformance.blog",
     auditRefs: [{
       id: "server-timing",
       group: "http",

@@ -17,7 +17,7 @@
     "performance",
     "server timing"
   ],
-  "main": "plugin.js",
+  "main": "index.js",
   "name": "lighthouse-plugin-performance",
   "peerDependencies": {
     "lighthouse": "^10.1.0"

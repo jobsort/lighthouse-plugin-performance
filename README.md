@@ -21,7 +21,7 @@ module.exports = {
 };
 ```
 
-## Usage
+## Use
 
 To see a report, simply run the following command:
 
